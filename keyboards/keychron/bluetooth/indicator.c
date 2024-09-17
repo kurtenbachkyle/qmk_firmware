@@ -479,7 +479,7 @@ void indicator_task(void) {
 __attribute__((weak)) void os_state_indicate(void) {
 #    if defined(NUM_LOCK_INDEX)
     if (host_keyboard_led_state().num_lock) {
-        SET_LED_ON(NUM_LOCK_INDEX);
+        /* SET_LED_ON(NUM_LOCK_INDEX); */
     }
 #    endif
 #    if defined(CAPS_LOCK_INDEX)
