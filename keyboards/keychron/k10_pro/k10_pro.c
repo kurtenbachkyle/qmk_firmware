@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Keychron (https://www.keychron.com)
+/* Copyright 2023 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -165,7 +165,7 @@ void keyboard_post_init_kb(void) {
 #endif
 
     power_on_indicator_timer_buffer = sync_timer_read32() | 1;
-    writePin(BAT_LOW_LED_PIN, 0);
+    writePin(BAT_LOW_LED_PIN, BAT_LOW_LED_PIN_ON_STATE);
     writePin(LED_CAPS_LOCK_PIN, LED_PIN_ON_STATE);
 #ifdef KC_BLUETOOTH_ENABLE
     writePin(H3, HOST_LED_PIN_ON_STATE);
@@ -189,11 +189,11 @@ void matrix_scan_kb(void) {
         if (sync_timer_elapsed32(power_on_indicator_timer_buffer) > POWER_ON_LED_DURATION) {
             power_on_indicator_timer_buffer = 0;
 
-            writePin(BAT_LOW_LED_PIN, 0);
+            writePin(BAT_LOW_LED_PIN, !BAT_LOW_LED_PIN_ON_STATE);
             writePin(H3, !HOST_LED_PIN_ON_STATE);
             if (!host_keyboard_led_state().caps_lock) writePin(LED_CAPS_LOCK_PIN, !LED_PIN_ON_STATE);
         } else {
-            writePin(BAT_LOW_LED_PIN, 0);
+            writePin(BAT_LOW_LED_PIN, BAT_LOW_LED_PIN_ON_STATE);
             writePin(H3, HOST_LED_PIN_ON_STATE);
             writePin(LED_CAPS_LOCK_PIN, LED_PIN_ON_STATE);
         }
